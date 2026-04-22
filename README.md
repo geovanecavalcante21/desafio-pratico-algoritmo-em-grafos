@@ -1,10 +1,5 @@
 # Desafio Prático: Algoritmos em Grafos — Da Teoria ao Mundo Real
 
-## Integrantes
-- [Nome do integrante 1]
-- [Nome do integrante 2]
-- [Nome do integrante 3]
-
 ---
 
 ## Sobre o projeto
