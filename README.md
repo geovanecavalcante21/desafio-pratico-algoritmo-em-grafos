@@ -1,49 +1,52 @@
 # Desafio Prático: Algoritmos em Grafos — Da Teoria ao Mundo Real
 
 ## Integrantes
-- [Preencher com os nomes do grupo]
+- [Nome do integrante 1]
+- [Nome do integrante 2]
+- [Nome do integrante 3]
 
 ---
 
-## Visão geral da atividade
+## Sobre o projeto
 
-Este trabalho foi dividido em duas partes:
+Este projeto foi desenvolvido com o objetivo de aplicar conceitos de **grafos** em dois contextos diferentes:
 
-1. **Fase 1 — Fundamentação Teórica (LeetCode)**
-   - Resolução de 2 problemas médios de grafos.
-   - Explicação da lógica e análise de complexidade.
+1. **Ambiente teórico**, por meio da resolução de problemas no LeetCode.
+2. **Ambiente real**, por meio do consumo de uma API pública e da aplicação de um algoritmo de grafos sobre dados dinâmicos.
 
-2. **Fase 2 — Aplicação no Mundo Real**
-   - Consumo de uma API pública gratuita.
-   - Modelagem dos dados como grafo.
-   - Aplicação de **BFS** para descobrir o grau de separação entre dois usuários do GitHub.
-
-A ideia central do projeto foi mostrar que algoritmos clássicos de grafos, como **DFS** e **BFS**, não servem apenas para exercícios acadêmicos, mas também podem ser reutilizados em problemas reais envolvendo dados dinâmicos.
+A proposta do trabalho foi mostrar que algoritmos clássicos como **DFS** e **BFS** não servem apenas para exercícios acadêmicos, mas também podem ser reutilizados em situações reais.
 
 ---
 
-# Fase 1 — Problemas do LeetCode
+## Objetivo da atividade
 
-## Problema 1 — Clone Graph (LeetCode 133)
+O objetivo deste trabalho foi consolidar o entendimento sobre estruturas de dados em grafos, aplicando algoritmos clássicos tanto em problemas controlados de programação quanto em um cenário real com dados vindos de uma API pública.
 
-### Enunciado resumido
-Dado um nó de um grafo não direcionado e conectado, é necessário retornar uma **cópia profunda** (deep copy) desse grafo.
+---
 
-### Ideia da solução
-Este problema foi resolvido com **DFS**.
+# Fase 1 — Problemas escolhidos no LeetCode
 
-A principal dificuldade está em evitar criar múltiplas cópias do mesmo nó. Para isso, usamos um dicionário (`visited`) que associa cada nó original ao seu clone.
+Foram escolhidos 2 problemas de dificuldade **Medium** relacionados a grafos.
 
-### Passo a passo
-1. Se o nó for nulo, retornamos `None`.
-2. Se o nó atual já foi copiado antes, retornamos a cópia armazenada.
-3. Criamos um novo nó clone com o mesmo valor.
-4. Salvamos esse clone no mapa `visited`.
-5. Percorremos recursivamente os vizinhos do nó original e clonamos cada um deles.
-6. Adicionamos os vizinhos clonados ao nó clone.
+---
 
-### Por que funciona?
-O DFS visita o grafo em profundidade e garante que cada nó seja copiado apenas uma vez. O mapa `visited` evita ciclos infinitos e duplicação de nós.
+## 1. Clone Graph
+
+### Descrição do problema
+Neste problema, o objetivo é criar uma **cópia profunda** de um grafo, preservando sua estrutura de conexões, mas sem reutilizar os nós originais.
+
+### Abordagem utilizada
+A solução foi implementada com **DFS (Depth-First Search)**.
+
+A lógica utilizada foi:
+
+- verificar se o nó atual já foi clonado;
+- usar um dicionário `visited` para relacionar cada nó original ao seu clone;
+- percorrer recursivamente os vizinhos do nó atual;
+- montar o novo grafo mantendo a mesma estrutura do original.
+
+### Por que essa abordagem funciona
+Como o grafo pode ter ciclos, não basta sair copiando os nós recursivamente sem controle. O dicionário `visited` evita duplicação de nós e impede loops infinitos durante a travessia.
 
 ### Complexidade
 - **Tempo:** `O(V + E)`
@@ -55,26 +58,24 @@ Onde:
 
 ---
 
-## Problema 2 — Number of Provinces (LeetCode 547)
+## 2. Number of Provinces
 
-### Enunciado resumido
-Dada uma matriz `isConnected`, onde `isConnected[i][j] = 1` indica conexão direta entre cidades `i` e `j`, devemos retornar quantas **províncias** existem, isto é, quantos grupos de cidades estão conectados direta ou indiretamente.
+### Descrição do problema
+Neste problema, é dada uma matriz `isConnected`, em que cada posição informa se duas cidades estão conectadas. O objetivo é descobrir quantas **províncias** existem, ou seja, quantos grupos de cidades estão conectados direta ou indiretamente.
 
-### Ideia da solução
-Este problema foi resolvido com **DFS** sobre a matriz de adjacência.
+### Abordagem utilizada
+A solução foi implementada com **DFS (Depth-First Search)**.
 
-Cada cidade ainda não visitada representa o início de uma nova província. A partir dela, fazemos uma busca para marcar todas as cidades que pertencem ao mesmo grupo conectado.
+A lógica utilizada foi:
 
-### Passo a passo
-1. Criamos um conjunto `visited` para controlar as cidades já processadas.
-2. Percorremos todas as cidades.
-3. Quando encontramos uma cidade ainda não visitada, isso significa que encontramos uma nova província.
-4. Executamos DFS a partir dessa cidade.
-5. O DFS visita todas as cidades conectadas a ela.
-6. Incrementamos o contador de províncias.
+- percorrer cada cidade da matriz;
+- verificar se ela já foi visitada;
+- quando uma cidade não visitada é encontrada, iniciar uma DFS;
+- marcar todas as cidades conectadas a ela;
+- contar cada nova DFS iniciada como uma nova província.
 
-### Por que funciona?
-Cada execução de DFS percorre exatamente um componente conexo do grafo. Assim, contar quantas vezes iniciamos uma nova DFS equivale a contar o número de componentes conexos.
+### Por que essa abordagem funciona
+Cada execução de DFS percorre exatamente um componente conectado do grafo. Assim, contar quantas vezes é necessário iniciar uma nova DFS equivale a contar quantas províncias existem.
 
 ### Complexidade
 - **Tempo:** `O(n²)`
@@ -83,169 +84,263 @@ Cada execução de DFS percorre exatamente um componente conexo do grafo. Assim,
 Onde:
 - `n` = número de cidades
 
-Como o grafo é dado em forma de **matriz de adjacência**, precisamos verificar todas as posições relevantes da linha da cidade atual.
-
 ---
 
-# Fase 2 — Aplicação no Mundo Real
+# Fase 2 — Aplicação no mundo real
 
-## API escolhida
-Foi utilizada a **API pública do GitHub**, modelando a rede de usuários como um grafo social.
+Na parte prática, foi utilizada a **API pública do GitHub** para construir uma rede de usuários em forma de grafo.
 
-## Problema real proposto
+## Problema proposto
 Descobrir o **grau de separação** entre dois usuários do GitHub.
 
-Exemplo de pergunta:
-> Em quantos “pulos” é possível chegar de um desenvolvedor a outro dentro da rede de seguidores/seguidos?
+Em outras palavras, o objetivo foi verificar em quantos “saltos” é possível sair de um usuário e chegar até outro dentro da rede de conexões.
 
 ---
 
-## Modelagem do grafo
+## API escolhida
 
-### Nós
-Cada usuário do GitHub representa um **nó** do grafo.
-
-### Arestas
-Foi considerada uma ligação entre dois usuários quando existe relação pública de **seguir** ou **ser seguido**.
-
-Na prática, ao expandir um usuário durante a busca, coletamos:
-- usuários que ele segue;
-- usuários que o seguem.
-
-Assim, trabalhamos com um grafo social explorável por vizinhança.
+Foi utilizada a **API pública do GitHub** para consultar informações relacionadas a usuários, seguidores e pessoas seguidas.
 
 ---
 
-## Algoritmo utilizado
-Foi utilizada **Busca em Largura (BFS)**.
+## Modelagem dos dados em forma de grafo
 
-### Por que BFS?
-Porque a BFS é o algoritmo clássico para encontrar o **menor número de arestas** entre um nó de origem e um nó de destino em grafos não ponderados.
+Os dados foram modelados da seguinte forma:
 
-Isso combina diretamente com a ideia de grau de separação:
-- 1 salto = conexão direta;
-- 2 saltos = precisa passar por 1 intermediário;
-- 3 saltos = precisa passar por 2 intermediários;
-- e assim por diante.
+- **Nós:** usuários do GitHub
+- **Arestas:** relações de seguir ou ser seguido
+
+Com isso, a rede de usuários foi tratada como um **grafo social**.
 
 ---
 
-## Relação entre a Fase 1 e a Fase 2
+## Algoritmo utilizado na aplicação real
 
-O mesmo raciocínio usado no problema **Number of Provinces** foi reaproveitado aqui:
+Para essa etapa, foi utilizada **BFS (Breadth-First Search)**.
 
-- controlar vértices visitados;
-- percorrer vizinhos de cada nó;
-- explorar a conectividade do grafo;
-- evitar revisitas e ciclos.
+### Motivo da escolha
+A BFS é adequada para encontrar o **menor caminho em número de arestas** em grafos não ponderados.
 
-A diferença é que, na aplicação real:
-- os dados não vêm prontos em memória;
-- eles precisam ser obtidos via API;
-- o grafo é construído dinamicamente durante a execução.
+Como o objetivo era descobrir o menor número de conexões entre dois usuários, essa foi a abordagem mais apropriada.
 
 ---
 
-## Funcionamento da aplicação real
+## Funcionamento da aplicação
 
-O script recebe:
-- um usuário de origem;
-- um usuário de destino;
-- profundidade máxima de busca.
+O script:
 
-Depois:
-1. consulta a API do GitHub;
-2. recupera seguidores e seguidos do usuário atual;
-3. usa BFS para expandir a rede nível por nível;
-4. para quando encontra o destino;
-5. retorna o número de saltos e o caminho encontrado.
+- recebe um usuário de origem;
+- recebe um usuário de destino;
+- recebe uma profundidade máxima;
+- consulta a API do GitHub;
+- recupera os seguidores e usuários seguidos do perfil atual;
+- monta a vizinhança do grafo dinamicamente;
+- utiliza BFS para buscar um caminho entre os dois usuários.
 
 ---
 
-## Complexidade da aplicação real
+## Resultado obtido no teste
 
-### Em termos de grafo
-Se chamarmos de:
-- `V` = usuários efetivamente visitados
-- `E` = relações exploradas
+No teste realizado, o programa retornou:
 
-A BFS continua tendo custo teórico de:
+- **Origem:** `torvalds`
+- **Destino:** `gaearon`
+- **Profundidade máxima:** `3`
+- **Grau de separação:** `2`
+- **Caminho encontrado:** `torvalds -> antelio -> gaearon`
+
+### Interpretação do resultado
+Isso significa que foi encontrado um caminho entre os dois usuários em **2 conexões**, passando por um usuário intermediário.
+
+---
+
+## Complexidade teórica da aplicação real
+
 - **Tempo:** `O(V + E)`
 - **Espaço:** `O(V)`
 
-### Na prática
-O tempo real também depende de:
-- latência da rede;
-- limite de requisições da API;
-- quantidade de seguidores/seguidos por usuário.
+Na prática, o desempenho também depende de fatores externos, como:
 
-Ou seja, embora a estrutura algorítmica seja eficiente, a aplicação real traz restrições externas que não aparecem em problemas fechados de plataforma.
+- quantidade de conexões de cada usuário;
+- tempo de resposta da API;
+- limite de requisições.
 
 ---
 
-## Resultado esperado
-A aplicação informa:
-- se existe caminho entre os dois usuários dentro do limite definido;
-- qual foi o caminho encontrado;
-- quantos saltos foram necessários.
+# Estrutura atual do projeto
 
-Exemplo de saída:
-
-```text
-Origem: userA
-Destino: userB
-Grau de separação: 3
-Caminho: userA -> userX -> userY -> userB
-```
-
----
-
-# Estrutura do repositório
+Atualmente, os arquivos estão organizados assim:
 
 ```text
 .
+├── .gitignore
 ├── README.md
-├── leetcode_clone_graph.py
-├── leetcode_number_of_provinces.py
 ├── github_degree_separation.py
-└── roteiro_apresentacao.md
+├── leetcode_clone_graph.py
+└── leetcode_number_of_provinces.py
 ```
 
 ---
 
-# Como executar
+# Tecnologias utilizadas
 
-## 1. Instalar dependências
+- Python
+- API pública do GitHub
+- Biblioteca `requests`
 
-```bash
-pip install requests
-```
+---
 
-## 2. Executar a aplicação real
+# Como executar o projeto
 
-```bash
-python github_degree_separation.py torvalds gaearon 3
-```
+## 1. Instalar a dependência necessária
 
-### Com token opcional do GitHub
-Para evitar limitações muito rápidas da API, também é possível usar um token pessoal:
+No terminal, execute:
 
 ```bash
-# Linux/macOS
-export GITHUB_TOKEN=seu_token
-python github_degree_separation.py torvalds gaearon 3
+python -m pip install requests
 ```
 
-```powershell
-# Windows PowerShell
-$env:GITHUB_TOKEN="seu_token"
-python github_degree_separation.py torvalds gaearon 3
+Se necessário, também pode ser usado:
+
+```bash
+py -m pip install requests
 ```
+
+---
+
+## 2. Executar o problema Clone Graph
+
+```bash
+python .\leetcode_clone_graph.py
+```
+
+ou
+
+```bash
+py .\leetcode_clone_graph.py
+```
+
+### Saída esperada
+
+```text
+Nó clonado: 1
+Vizinhos do nó clonado: [2, 4]
+```
+
+---
+
+## 3. Executar o problema Number of Provinces
+
+```bash
+python .\leetcode_number_of_provinces.py
+```
+
+ou
+
+```bash
+py .\leetcode_number_of_provinces.py
+```
+
+### Saída esperada
+
+```text
+Número de províncias: 2
+```
+
+---
+
+## 4. Executar a aplicação real com a API do GitHub
+
+```bash
+python .\github_degree_separation.py torvalds gaearon 3
+```
+
+ou
+
+```bash
+py .\github_degree_separation.py torvalds gaearon 3
+```
+
+### Significado dos parâmetros
+
+- `torvalds` = usuário de origem
+- `gaearon` = usuário de destino
+- `3` = profundidade máxima da busca
+
+### Exemplo de saída obtida
+
+```text
+Origem: torvalds
+Destino: gaearon
+Profundidade máxima: 3
+Grau de separação: 2
+Caminho: torvalds -> antelio -> gaearon
+```
+
+---
+
+# Demonstração da atividade
+
+A apresentação pode ser organizada em duas partes:
+
+## Parte 1 — Problemas escolhidos no LeetCode
+
+### Problema 1: Clone Graph
+- explicar que o objetivo é clonar um grafo;
+- mostrar o uso de DFS;
+- mostrar o papel do dicionário `visited`;
+- comentar a complexidade da solução;
+- apresentar o resultado do teste local.
+
+### Problema 2: Number of Provinces
+- explicar que o objetivo é contar grupos conectados;
+- mostrar o uso de DFS para percorrer cidades conectadas;
+- explicar que cada nova DFS representa uma nova província;
+- comentar a complexidade da solução;
+- apresentar o resultado do teste local.
+
+---
+
+## Parte 2 — Aplicação real
+
+### API escolhida
+A API escolhida foi a **API pública do GitHub**.
+
+### Modelagem dos dados
+- cada usuário foi tratado como um **nó**;
+- cada relação de seguir ou ser seguido foi tratada como uma **aresta**.
+
+### Algoritmo utilizado
+Foi utilizada **BFS**, porque o objetivo era encontrar o menor número de conexões entre dois usuários.
+
+### Resultado da execução
+No teste feito, foi encontrado o seguinte caminho:
+
+```text
+torvalds -> antelio -> gaearon
+```
+
+com **grau de separação 2**.
+
+Isso demonstra que o algoritmo conseguiu encontrar uma conexão real entre dois usuários usando dados obtidos da API.
 
 ---
 
 # Conclusão
 
-Este trabalho mostrou que algoritmos de grafos estudados em ambientes de treino, como LeetCode, podem ser adaptados para resolver problemas concretos. Na Fase 1, utilizamos DFS para manipular conectividade e estruturas de grafo. Na Fase 2, aplicamos BFS em dados reais do GitHub para medir o grau de separação entre desenvolvedores.
+Este projeto permitiu conectar teoria e prática no estudo de grafos.
 
-Com isso, foi possível conectar teoria e prática, demonstrando que estruturas de dados e algoritmos não são apenas conceitos abstratos, mas ferramentas úteis para interpretar e explorar redes reais.
+Na primeira etapa, os algoritmos foram aplicados em problemas clássicos do LeetCode, permitindo reforçar conceitos como travessia em grafos, componentes conectados e cópia de estruturas.
+
+Na segunda etapa, a mesma base algorítmica foi aplicada em dados reais obtidos da API pública do GitHub. Com isso, foi possível demonstrar que algoritmos como **DFS** e **BFS** têm utilidade concreta fora do ambiente acadêmico, sendo aplicáveis à exploração de redes, conexões e caminhos em dados dinâmicos.
+
+---
+
+# Observação final
+
+Os testes mostraram que:
+
+- a cópia do grafo foi realizada corretamente;
+- a contagem de províncias funcionou como esperado;
+- a aplicação real conseguiu encontrar uma conexão entre dois usuários do GitHub;
+- a reutilização de algoritmos clássicos de grafos em um cenário real foi bem-sucedida.
